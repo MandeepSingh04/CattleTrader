@@ -57,4 +57,31 @@ contract CattleTrader{
         userID++;
     }
     
+    function addCow(string memory _breed, uint _dob, uint _price, uint _owner) public{
+        require(_dob < block.timestamp, "Invalid Date of Birth");
+        cows[cowID] = Cow({owner: _owner, breed : _breed, dateOfBirth :_dob, price : _price, tests : new uint[](0), dtests : new uint[](0)});
+        cowID++;
+        users[_owner].cows.push(cowID);
+    }
+
+
+    function medicalTest(uint _cowID, string memory prob, string memory sol) public{
+        medTests[medID] = Medical(prob,sol);
+        cows[_cowID].tests.push(medID);
+        medID++;
+    }
+
+
+    function updateDairy(uint _cowID, uint _fat, uint _maxMilk) public{
+        milkTests[dairyID] = Dairy(_fat,_maxMilk);
+        cows[_cowID].dtests.push(dairyID);
+        dairyID++;
+    }
+
+
+    function toSell(uint _cowID) public{
+        sell.push(_cowID);
+    }
+
+    
 }
