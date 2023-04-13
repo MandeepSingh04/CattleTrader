@@ -40,4 +40,21 @@ contract CattleTrader{
         uint maxAge;
         uint price;
     }
+    mapping(uint=>User) users;
+    mapping(uint=>Cow) cows;
+    mapping(uint=>Medical) medTests;
+    mapping(uint=>Dairy) milkTests;
+
+
+
+
+    uint[] public sell;
+
+
+    function adduser(string memory _name, string memory user_address, uint _dob) public{
+        require(_dob < block.timestamp, "Invalid Date of Birth");
+        users[userID] = User({name : _name, cows : new uint[](0), add: user_address, dob :_dob, minAge : 0, maxAge : 0, price : 0});
+        userID++;
+    }
+    
 }
